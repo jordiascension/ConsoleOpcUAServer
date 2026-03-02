@@ -27,13 +27,9 @@
             // 2) Crea N nodos de forma declarativa
             // Puedes añadir tantos como quieras
             AddIntNode(demoFolder, "MyChangingValue", 0);
-            AddIntNode(demoFolder, "Variable1", 0);
-            AddIntNode(demoFolder, "Variable2", 0);
-
-            // Ejemplo: crear 20 nodos más
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= 7000; i++)
             {
-                AddIntNode(demoFolder, $"Tag{i:000}", 0);
+                AddIntNode(demoFolder, $"Variable{i}", 0);
             }
 
             // 3) Servidor
@@ -80,18 +76,15 @@
                 var changed = new List<OpcDataVariableNode<int>>(capacity: 16);
 
                 // 1) Actualiza el contador principal
-                if (TrySet("MyChangingValue", _counter, changed))
-                {
-                    // opcional
-                }
-
-                // 2) Tu lógica de negocio: cuando counter < 100, cambia otros
-                if (_counter < 100)
-                {
-                    TrySet("Variable1", _counter, changed);
-                    TrySet("Variable2", _counter, changed);
-                }
-
+                TrySet("MyChangingValue", _counter, changed);
+                TrySet("Variable1", _counter, changed);
+                TrySet("Variable2", _counter, changed);
+                TrySet("Variable1500", _counter, changed);
+                TrySet("Variable3000", _counter, changed);
+                TrySet("Variable4000", _counter, changed);
+                TrySet("Variable5000", _counter, changed);
+                TrySet("Variable6000", _counter, changed);
+                TrySet("Variable7000", _counter, changed);
                 // 3) Ejemplo: actualizar tags masivos
                 // (aquí puedes aplicar cualquier fórmula)
                 /*for (int i = 1; i <= 20; i++)
@@ -112,6 +105,22 @@
                 Console.WriteLine($"Tick {_counter} | Cambios: {changed.Count}");
                 if (_intNodes.TryGetValue("MyChangingValue", out var c))
                     Console.WriteLine($"MyChangingValue = {c.Value}");
+                if (_intNodes.TryGetValue("Variable1", out var v1))
+                    Console.WriteLine($"Variable1 = {v1.Value}");
+                if (_intNodes.TryGetValue("Variable2", out var v2))
+                    Console.WriteLine($"Variable2 = {v2.Value}");
+                if (_intNodes.TryGetValue("Variable1500", out var v1500))
+                    Console.WriteLine($"Variable1500 = {v1500.Value}");
+                if (_intNodes.TryGetValue("Variable3000", out var v3000))
+                    Console.WriteLine($"Variable3000 = {v3000.Value}");
+                if (_intNodes.TryGetValue("Variable4000", out var v4000))
+                    Console.WriteLine($"Variable4000 = {v4000.Value}");
+                if (_intNodes.TryGetValue("Variable5000", out var v5000))
+                    Console.WriteLine($"Variable5000 = {v5000.Value}");
+                if (_intNodes.TryGetValue("Variable6000", out var v6000))
+                    Console.WriteLine($"Variable6000 = {v6000.Value}");
+                if (_intNodes.TryGetValue("Variable7000", out var v7000))
+                    Console.WriteLine($"Variable7000 = {v7000.Value}");
             }
             catch (Exception ex)
             {
